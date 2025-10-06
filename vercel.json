@@ -8,14 +8,6 @@
   ],
   "routes": [
     {
-      "src": "/assets/(.*)",
-      "dest": "/FiaibnbDemo/assets/$1"
-    },
-    {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/FiaibnbDemo/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "/server.js"
     }

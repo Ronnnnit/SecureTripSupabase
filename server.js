@@ -204,7 +204,27 @@ app.get('*.js', (req, res) => {
 // Handle all static files in assets directory
 app.get('/assets/*', (req, res) => {
     const filePath = __dirname + '/FiaibnbDemo' + req.path;
+    console.log('Attempting to serve file:', filePath);
     res.sendFile(filePath);
+});
+
+// Debug route to check if files exist
+app.get('/debug-files', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    
+    const assetsPath = path.join(__dirname, 'FiaibnbDemo', 'assets');
+    const cssPath = path.join(assetsPath, 'css');
+    const jsPath = path.join(assetsPath, 'js');
+    
+    const files = {
+        css: fs.existsSync(cssPath) ? fs.readdirSync(cssPath) : 'CSS directory not found',
+        js: fs.existsSync(jsPath) ? fs.readdirSync(jsPath) : 'JS directory not found',
+        assetsExists: fs.existsSync(assetsPath),
+        fiaibnbDemoExists: fs.existsSync(path.join(__dirname, 'FiaibnbDemo'))
+    };
+    
+    res.json(files);
 });
 
 // Serve HTML pages

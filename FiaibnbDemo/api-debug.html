@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Debug - SecureTrip</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/api-debug.css">
+</head>
+<body>
+    <!-- DevRev Plug SDK -->
+    <script type="text/javascript" src="https://plug-platform.devrev.ai/static/plug.js"></script>
+    <script src="https://static.plug.devrev.ai/plug-latest.min.js"></script>
+    <script src="assets/js/plug-init.js"></script>
+    
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h2>SecureTrip</h2>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="packages.html" class="nav-link">Packages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="history.html" class="nav-link">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cart.html" class="nav-link">Cart <span id="cart-count" class="cart-count">0</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="api-debug.html" class="nav-link active">API Debug</a>
+                    </li>
+                    <li class="nav-item auth-section" id="auth-section">
+                        <a href="signin.html" class="nav-link" id="auth-link">Sign In</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="auto-refresh-indicator" id="refreshIndicator">
+        Auto-refresh: OFF
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>API Debug Console</h1>
+            <p>Test and debug API endpoints for SecureTrip - Auto-refreshing every 5 seconds</p>
+        </header>
+
+        <div class="debug-section">
+            <h2>API Endpoints Testing</h2>
+            
+            <div class="endpoint-group">
+                <h3>User Management</h3>
+                <button onclick="testUserRegistration()">Test User Registration</button>
+                <button onclick="testUserLogin()">Test User Login</button>
+                <button onclick="testGetUserById()">Get User by ID</button>
+            </div>
+
+            <div class="endpoint-group">
+                <h3>Packages</h3>
+                <button onclick="testGetPackages()">Get All Packages</button>
+                <button onclick="testGetPackageById()">Get Package by ID</button>
+            </div>
+
+            <div class="endpoint-group">
+                <h3>Bookings</h3>
+                <button onclick="testCreateBooking()">Create Booking</button>
+                <button onclick="testGetBookings()">Get User Bookings</button>
+                <button onclick="testDeleteBooking()">Delete Booking</button>
+            </div>
+
+            <div class="endpoint-group">
+                <h3>Payments</h3>
+                <button onclick="testCardPayment()">Test Card Payment</button>
+                <button onclick="testUPIPayment()">Test UPI Payment</button>
+                <button onclick="testPaymentHistory()">Get Payment History</button>
+            </div>
+
+            <div class="endpoint-group">
+                <h3>Cart</h3>
+                <button onclick="testGetCart()">Get Cart</button>
+                <button onclick="testAddToCart()">Add to Cart</button>
+                <button onclick="testUpdateCart()">Update Cart</button>
+            </div>
+
+            <div class="endpoint-group">
+                <h3>DevRev Integration</h3>
+                <button onclick="testDevRevToken()">Generate DevRev Token</button>
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2>Live API Activity Logs</h2>
+            <div class="log-controls">
+                <button onclick="toggleAutoRefresh()" id="refreshToggleBtn" class="btn">Start Live Logs</button>
+                <button onclick="clearConsole()" class="clear-btn">Clear Logs</button>
+                <span class="log-status" id="logStatus">🔴 Live logging stopped</span>
+            </div>
+            <div id="responseConsole" class="console">
+                <p>Live API activity logs will appear here...</p>
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2>Test Data</h2>
+            <div class="test-data">
+                <h3>Sample User Data</h3>
+                <pre id="userData">{
+  "name": "Test User",
+  "email": "test@example.com",
+  "password": "password123"
+}</pre>
+                
+                <h3>Sample Booking Data</h3>
+                <pre id="bookingData">{
+  "userId": "user-uuid-here",
+  "packages": [{"id": "pkg_1", "name": "Test Package", "price": 1500, "quantity": 1}],
+  "total": 1500,
+  "pickup_location": "Mumbai Airport",
+  "transport_mode": "Flight",
+  "stay_option": "Hotel",
+  "room_type": "Deluxe",
+  "guests": 2,
+  "start_date": "2025-10-15",
+  "end_date": "2025-10-22"
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/api-debug.js"></script>
+</body>
+</html>

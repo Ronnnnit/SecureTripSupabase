@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - SecureTrip</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+    <style>
+        /* Dark Theme Variables */
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #E0E0E0;
+            --text-secondary: #B0B0B0;
+            --border-color: #444444;
+            --accent-color: #888888;
+            --accent-hover: #999999;
+            --accent-active: #777777;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Ensure navbar is sticky */
+        .header, .navbar {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+            background-color: rgba(0, 0, 0, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            width: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
+
+        /* Force sticky positioning for all nav elements */
+        nav {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+        }
+
+        /* Ensure the header container doesn't interfere */
+        header {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+        }
+
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .checkout-form {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        .checkout-summary {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .payment-method {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: var(--bg-primary);
+        }
+
+        .payment-method:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .payment-method.selected {
+            border-color: var(--accent-color);
+            background-color: var(--bg-secondary);
+        }
+
+        .payment-method h4 {
+            color: var(--text-primary);
+            margin: 10px 0 5px 0;
+        }
+
+        .payment-method p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .payment-method-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .payment-form {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .payment-form.active {
+            display: block;
+        }
+
+        .payment-form h4 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .card-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .card-form .form-group:last-child {
+            grid-column: 1 / -1;
+        }
+
+        .upi-qr {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .upi-qr p {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: var(--bg-primary);
+            border: 2px dashed var(--border-color);
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .upi-qr p:last-child {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-color);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .checkout-btn:active {
+            background: var(--accent-active);
+        }
+
+        .checkout-btn:disabled {
+            background: var(--border-color);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .checkout-summary h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .package-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .package-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .package-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .package-details p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .otp-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        .otp-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .otp-content {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid var(--border-color);
+        }
+
+        .otp-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .otp-content p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .otp-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            margin: 20px 0;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .otp-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .otp-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .otp-btn.primary {
+            background: var(--accent-color);
+            color: var(--bg-primary);
+        }
+
+        .otp-btn.primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .otp-btn.secondary {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .otp-btn.secondary:hover {
+            background: var(--accent-color);
+        }
+
+        /* Page Title Styling */
+        .main-content h1 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Container Styling */
+        .container {
+            background-color: var(--bg-primary);
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- DevRev Plug SDK -->
+    <script type="text/javascript" src="https://plug-platform.devrev.ai/static/plug.js"></script>
+    <script src="https://static.plug.devrev.ai/plug-latest.min.js"></script>
+    <script src="assets/js/plug-init.js"></script>
+    
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h2>SecureTrip</h2>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="packages.html" class="nav-link">Packages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="history.html" class="nav-link">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cart.html" class="nav-link">Cart <span id="cart-count" class="cart-count">0</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="api-debug.html" class="nav-link">API Debug</a>
+                    </li>
+                    <li class="nav-item auth-section" id="auth-section">
+                        <a href="signin.html" class="nav-link" id="auth-link">Sign In</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1>Checkout</h1>
+            
+            <div class="checkout-container">
+                <div class="checkout-form">
+                    <form id="checkout-form">
+                        <!-- Booking Details Section -->
+                        <div class="form-section">
+                            <h3>Booking Details</h3>
+                            
+                            <div class="form-group">
+                                <label for="pickup_location">Pickup Location</label>
+                                <input type="text" id="pickup_location" name="pickup_location" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="transport_mode">Transport Mode</label>
+                                <select id="transport_mode" name="transport_mode" required>
+                                    <option value="">Select Transport</option>
+                                    <option value="flight">Flight</option>
+                                    <option value="train">Train</option>
+                                    <option value="bus">Bus</option>
+                                    <option value="car">Car</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="stay_option">Stay Option</label>
+                                <select id="stay_option" name="stay_option" required>
+                                    <option value="">Select Stay</option>
+                                    <option value="hotel">Hotel</option>
+                                    <option value="resort">Resort</option>
+                                    <option value="hostel">Hostel</option>
+                                    <option value="homestay">Homestay</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="room_type">Room Type</label>
+                                <select id="room_type" name="room_type" required>
+                                    <option value="">Select Room Type</option>
+                                    <option value="single">Single</option>
+                                    <option value="double">Double</option>
+                                    <option value="twin">Twin</option>
+                                    <option value="suite">Suite</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="guests">Number of Guests</label>
+                                <input type="number" id="guests" name="guests" min="1" max="10" required>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method Section -->
+                        <div class="form-section">
+                            <h3>Payment Method</h3>
+                            
+                            <div class="payment-methods">
+                                <div class="payment-method" data-method="card">
+                                    <div class="payment-method-icon">💳</div>
+                                    <h4>Credit/Debit Card</h4>
+                                    <p>Pay with your card</p>
+                                </div>
+                                
+                                <div class="payment-method" data-method="upi">
+                                    <div class="payment-method-icon">📱</div>
+                                    <h4>UPI Payment</h4>
+                                    <p>Pay with UPI apps</p>
+                                </div>
+                            </div>
+
+                            <!-- Card Payment Form -->
+                            <div class="payment-form" id="card-form">
+                                <h4>Card Details</h4>
+                                <div class="card-form">
+                                    <div class="form-group">
+                                        <label for="card_number">Card Number</label>
+                                        <input type="text" id="card_number" placeholder="1234 5678 9012 3456" maxlength="19">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expiry_date">Expiry Date</label>
+                                        <input type="text" id="expiry_date" placeholder="MM/YY" maxlength="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" placeholder="123" maxlength="3">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cardholder_name">Cardholder Name</label>
+                                        <input type="text" id="cardholder_name" placeholder="John Doe">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- UPI Payment Form -->
+                            <div class="payment-form" id="upi-form">
+                                <h4>UPI Payment</h4>
+                                <div class="upi-qr">
+                                    <p>Scan the QR code with your UPI app</p>
+                                    <div class="qr-code">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=securetrip@paytm&pn=SecureTrip%20Travel&am=0&cu=INR&tn=Travel%20Booking" 
+                                             alt="UPI QR Code" 
+                                             style="width: 200px; height: 200px; border-radius: 8px;">
+                                    </div>
+                                    <p style="color: #666; font-size: 14px;">Amount: <span id="upi-amount">₹0</span></p>
+                                    <p style="color: #666; font-size: 14px;">Payment will be processed automatically</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="checkout-btn" id="checkout-btn" disabled>
+                            Complete Payment
+                        </button>
+                    </form>
+                </div>
+
+                <div class="checkout-summary">
+                    <h3>Order Summary</h3>
+                    <div id="checkout-packages">
+                        <!-- Packages will be populated by JavaScript -->
+                    </div>
+                    <div class="summary-item">
+                        <span>Subtotal:</span>
+                        <span id="checkout-subtotal">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Taxes & Fees:</span>
+                        <span>₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total:</span>
+                        <span id="checkout-total">₹0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- OTP Modal -->
+    <div class="otp-modal" id="otp-modal">
+        <div class="otp-content">
+            <h3>Enter OTP</h3>
+            <p>Please enter the OTP sent to your registered mobile number</p>
+            <input type="text" class="otp-input" id="otp-input" placeholder="123456" maxlength="6">
+            <div class="otp-buttons">
+                <button class="otp-btn secondary" onclick="closeOTPModal()">Cancel</button>
+                <button class="otp-btn primary" onclick="verifyOTP()">Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SecureTrip</h3>
+                    <p>Your gateway to amazing travel experiences.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="packages.html">Packages</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="history.html">History</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">Facebook</a>
+                        <a href="#" aria-label="Twitter">Twitter</a>
+                        <a href="#" aria-label="Instagram">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SecureTrip. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/checkout.js"></script>
+</body>
+</html>

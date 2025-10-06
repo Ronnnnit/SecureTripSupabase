@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureTrip - Discover Your Next Great Adventure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body>
+    <!-- DevRev Plug SDK -->
+    <script type="text/javascript" src="https://plug-platform.devrev.ai/static/plug.js"></script>
+    <script src="https://static.plug.devrev.ai/plug-latest.min.js"></script>
+    <script src="assets/js/plug-init.js"></script>
+    
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h2>SecureTrip</h2>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="packages.html" class="nav-link">Packages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="history.html" class="nav-link">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="cart.html" class="nav-link">Cart <span id="cart-count" class="cart-count">0</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="api-debug.html" class="nav-link">API Debug</a>
+                    </li>
+                    <li class="nav-item auth-section" id="auth-section">
+                        <a href="signin.html" class="nav-link" id="auth-link">Sign In</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Discover Your Next Great Adventure</h1>
+                <p>Explore breathtaking destinations, create unforgettable memories, and experience the world like never before</p>
+                <div class="hero-actions">
+                    <a href="packages.html" class="cta-button primary">Explore Packages</a>
+                    <a href="#destinations" class="cta-button secondary">View Destinations</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p>Countries</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>1000+</h3>
+                        <p>Happy Travelers</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>30+</h3>
+                        <p>Amazing Packages</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Destinations Section -->
+        <section class="top-destinations" id="destinations">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Top Destinations</h2>
+                    <p>Discover the most popular travel destinations around the world</p>
+                </div>
+                <div class="destinations-grid" id="destinations-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+                <div class="section-footer">
+                    <a href="packages.html" class="cta-button">View All Packages</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="why-choose-us">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why Choose SecureTrip?</h2>
+                    <p>Your trusted travel partner for unforgettable experiences</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💸</div>
+                        <h3>Best Prices</h3>
+                        <p>Guaranteed lowest prices with exclusive deals and offers. Get the best value for your money.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Trusted Service</h3>
+                        <p>Over 10 years of experience with thousands of satisfied customers worldwide.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3>Global Reach</h3>
+                        <p>Access to 50+ countries with local expertise and authentic experiences.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🕒</div>
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock customer support to help you before, during, and after your trip.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2>What Our Travelers Say</h2>
+                    <p>Real experiences from real travelers</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"SecureTrip made our dream trip to Bali absolutely perfect! From booking to the actual experience, everything was seamless. Highly recommended!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👩</div>
+                            <div class="author-info">
+                                <h4>Priya Sharma</h4>
+                                <span>Bali, Indonesia</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Amazing value for money! The European tour exceeded all our expectations. The team was professional and the itinerary was well-planned."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👨</div>
+                            <div class="author-info">
+                                <h4>Arjun Patel</h4>
+                                <span>European Adventure</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"The safari experience was once in a lifetime! Every detail was taken care of. Thank you SecureTrip for making our anniversary trip unforgettable."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👫</div>
+                            <div class="author-info">
+                                <h4>Rajesh & Meera</h4>
+                                <span>Kenya Safari</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="container">
+                <div class="newsletter-content">
+                    <div class="newsletter-text">
+                        <h2>Stay Updated</h2>
+                        <p>Subscribe to our newsletter for exclusive deals, travel tips, and destination guides</p>
+                    </div>
+                    <div class="newsletter-form">
+                        <form id="newsletter-form">
+                            <input type="email" placeholder="Enter your email address" required>
+                            <button type="submit" class="cta-button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SecureTrip</h3>
+                    <p>Your gateway to amazing travel experiences around the world.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="YouTube">📺</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="packages.html">Browse Packages</a></li>
+                        <li><a href="cart.html">Your Cart</a></li>
+                        <li><a href="history.html">Booking History</a></li>
+                        <li><a href="signin.html">Sign In / Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Destinations</h4>
+                    <ul>
+                        <li><a href="#">Asia</a></li>
+                        <li><a href="#">Europe</a></li>
+                        <li><a href="#">Americas</a></li>
+                        <li><a href="#">Africa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>📧 info@securetrip.com</li>
+                        <li>📞 +91 98765 43210</li>
+                        <li>📍 Mumbai, India</li>
+                        <li>⏰ 24/7 Customer Support</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 SecureTrip. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Help Center</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Load featured destinations on homepage
+        document.addEventListener('DOMContentLoaded', () => {
+            const destinationsGrid = document.getElementById('destinations-grid');
+            const featuredPackages = packages.slice(0, 8);
+            
+            featuredPackages.forEach(pkg => {
+                const destinationCard = document.createElement('div');
+                destinationCard.className = 'destination-card';
+                destinationCard.innerHTML = `
+                    <div class="destination-image" style="background-image: url('${pkg.image}')"></div>
+                    <div class="destination-content">
+                        <h3>${pkg.title}</h3>
+                        <p class="destination-location">${pkg.location}</p>
+                        <p class="destination-description">${pkg.description.substring(0, 100)}...</p>
+                        <div class="destination-footer">
+                            <span class="destination-price">₹${pkg.price.toLocaleString()}</span>
+                            <a href="packages.html" class="destination-link">View Details</a>
+                        </div>
+                    </div>
+                `;
+                destinationsGrid.appendChild(destinationCard);
+            });
+
+            // Newsletter form handler
+            document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = e.target.querySelector('input[type="email"]').value;
+                showAlert('Thank you for subscribing! You will receive our latest updates.', 'success');
+                e.target.reset();
+            });
+        });
+    </script>
+</body>
+</html>

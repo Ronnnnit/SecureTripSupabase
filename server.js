@@ -183,27 +183,27 @@ app.use(express.json());
 app.use(arrayToTextMiddleware);
 app.use(apiLogger);
 
-// Serve static files from the FiaibnbDemo directory
-app.use(express.static('FiaibnbDemo'));
+// Serve static files from the public directory
+app.use(express.static('public'));
 
 // Serve static assets with proper MIME types
-app.use('/assets', express.static('FiaibnbDemo/assets'));
+app.use('/assets', express.static('public/assets'));
 
 // Handle CSS files
 app.get('*.css', (req, res) => {
     res.setHeader('Content-Type', 'text/css');
-    res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
+    res.sendFile(__dirname + '/public' + req.path);
 });
 
 // Handle JavaScript files
 app.get('*.js', (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
-    res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
+    res.sendFile(__dirname + '/public' + req.path);
 });
 
 // Handle all static files in assets directory
 app.get('/assets/*', (req, res) => {
-    const filePath = __dirname + '/FiaibnbDemo' + req.path;
+    const filePath = __dirname + '/public' + req.path;
     console.log('Attempting to serve file:', filePath);
     res.sendFile(filePath);
 });
@@ -213,14 +213,15 @@ app.get('/debug-files', (req, res) => {
     const fs = require('fs');
     const path = require('path');
     
-    const assetsPath = path.join(__dirname, 'FiaibnbDemo', 'assets');
-    const cssPath = path.join(assetsPath, 'css');
-    const jsPath = path.join(assetsPath, 'js');
+    const publicAssetsPath = path.join(__dirname, 'public', 'assets');
+    const cssPath = path.join(publicAssetsPath, 'css');
+    const jsPath = path.join(publicAssetsPath, 'js');
     
     const files = {
         css: fs.existsSync(cssPath) ? fs.readdirSync(cssPath) : 'CSS directory not found',
         js: fs.existsSync(jsPath) ? fs.readdirSync(jsPath) : 'JS directory not found',
-        assetsExists: fs.existsSync(assetsPath),
+        assetsExists: fs.existsSync(publicAssetsPath),
+        publicExists: fs.existsSync(path.join(__dirname, 'public')),
         fiaibnbDemoExists: fs.existsSync(path.join(__dirname, 'FiaibnbDemo'))
     };
     
@@ -229,7 +230,7 @@ app.get('/debug-files', (req, res) => {
 
 // Serve HTML pages
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 // Handle all static files with proper headers
@@ -242,39 +243,39 @@ app.use((req, res, next) => {
 
 
 app.get('/packages', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/packages.html');
+    res.sendFile(__dirname + '/public/packages.html');
 });
 
 app.get('/cart', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/cart.html');
+    res.sendFile(__dirname + '/public/cart.html');
 });
 
 app.get('/checkout', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/checkout.html');
+    res.sendFile(__dirname + '/public/checkout.html');
 });
 
 app.get('/confirmation', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/confirmation.html');
+    res.sendFile(__dirname + '/public/confirmation.html');
 });
 
 app.get('/history', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/history.html');
+    res.sendFile(__dirname + '/public/history.html');
 });
 
 app.get('/signin', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/signin.html');
+    res.sendFile(__dirname + '/public/signin.html');
 });
 
 app.get('/register', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/register.html');
+    res.sendFile(__dirname + '/public/register.html');
 });
 
 app.get('/api-debug', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/api-debug.html');
+    res.sendFile(__dirname + '/public/api-debug.html');
 });
 
 app.get('/test-widget', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo/test-widget.html');
+    res.sendFile(__dirname + '/public/test-widget.html');
 });
 
 // --- DevRev API Token Generation ---

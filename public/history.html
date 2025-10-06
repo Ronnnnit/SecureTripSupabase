@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Booking History - SecureTrip</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/cart.css" />
+</head>
+<body>
+    <!-- DevRev Plug SDK -->
+    <script type="text/javascript" src="https://plug-platform.devrev.ai/static/plug.js"></script>
+    <script src="https://static.plug.devrev.ai/plug-latest.min.js"></script>
+    <script src="assets/js/plug-init.js"></script>
+    
+    <header class="header">
+        <nav class="navbar" role="navigation" aria-label="Main Navigation">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>SecureTrip</h1>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="packages.html" class="nav-link">Packages</a></li>
+                    <li class="nav-item"><a href="history.html" class="nav-link active" aria-current="page">History</a></li>
+                    <li class="nav-item">
+                        <a href="cart.html" class="nav-link">
+                            Cart <span id="cart-count" class="cart-count" aria-live="polite">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="api-debug.html" class="nav-link">API Debug</a>
+                    </li>
+                    <li class="nav-item auth-section" id="auth-section">
+                        <a href="signin.html" class="nav-link" id="auth-link">Sign In</a>
+                    </li>
+                </ul>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="container" aria-live="polite" aria-atomic="true">
+            <div class="history-header-section">
+                <h1 class="history-title">Your Booking History</h1>
+                <p class="history-subtitle">Track all your travel adventures and upcoming trips</p>
+            </div>
+            
+            <div class="history-content" id="history-content">
+                <!-- Booking history items will be dynamically inserted here by JavaScript -->
+            </div>
+            
+            <div class="empty-history" id="empty-history" style="display: none;">
+                <div class="empty-history-icon">H</div>
+                <h3>No Bookings Found</h3>
+                <p>You haven't made any bookings yet. Explore our travel packages to get started.</p>
+                <a href="packages.html" class="cta-button primary">View Packages</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <section class="footer-section" aria-label="About SecureTrip">
+                    <h3>SecureTrip</h3>
+                    <p>Your gateway to amazing travel experiences.</p>
+                </section>
+                <section class="footer-section" aria-label="Quick Links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="packages.html">Packages</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="history.html">History</a></li>
+                    </ul>
+                </section>
+                <section class="footer-section" aria-label="Social Media Links">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">Facebook</a>
+                        <a href="#" aria-label="Twitter">Twitter</a>
+                        <a href="#" aria-label="Instagram">Instagram</a>
+                    </div>
+                </section>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SecureTrip. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/history.js"></script>
+</body>
+</html>

@@ -189,16 +189,22 @@ app.use(express.static('FiaibnbDemo'));
 // Serve static assets with proper MIME types
 app.use('/assets', express.static('FiaibnbDemo/assets'));
 
-// Ensure CSS files are served with correct MIME type
+// Handle CSS files
 app.get('*.css', (req, res) => {
     res.setHeader('Content-Type', 'text/css');
     res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
 });
 
-// Serve JavaScript files with correct MIME type
+// Handle JavaScript files
 app.get('*.js', (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
     res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
+});
+
+// Handle all static files in assets directory
+app.get('/assets/*', (req, res) => {
+    const filePath = __dirname + '/FiaibnbDemo' + req.path;
+    res.sendFile(filePath);
 });
 
 // Serve HTML pages
@@ -214,10 +220,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Fallback route for static files
-app.get('/assets/*', (req, res) => {
-    res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
-});
 
 app.get('/packages', (req, res) => {
     res.sendFile(__dirname + '/FiaibnbDemo/packages.html');

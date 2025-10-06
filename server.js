@@ -186,9 +186,26 @@ app.use(apiLogger);
 // Serve static files from the FiaibnbDemo directory
 app.use(express.static('FiaibnbDemo'));
 
+// Serve static assets with proper MIME types
+app.use('/assets', express.static('FiaibnbDemo/assets'));
+
+// Ensure CSS files are served with correct MIME type
+app.get('*.css', (req, res) => {
+    res.setHeader('Content-Type', 'text/css');
+    res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
+});
+
 // Serve HTML pages
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/FiaibnbDemo/index.html');
+});
+
+// Handle all static files with proper headers
+app.use((req, res, next) => {
+    if (req.path.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+    next();
 });
 
 app.get('/packages', (req, res) => {

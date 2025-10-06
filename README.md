@@ -106,3 +106,4 @@ Run `node server.js` and watch the console for real-time information about what'
 - CSS loading issue fixed for Vercel deployment
 - Static file routing configured with vercel.json
 - Build scripts updated for Vercel compatibility
+- Files moved to public directory for proper Vercel deployment

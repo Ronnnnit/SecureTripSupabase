@@ -12,7 +12,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Import package data
-const packagesData = require('./FiaibnbDemo/assets/js/data.js');
+const packagesData = require('./public/assets/js/data.js');
 
 // --- Supabase Connection Test ---
 supabase.from('users').select('count').then(({ data, error }) => {
@@ -188,25 +188,6 @@ app.use(express.static('public'));
 
 // Serve static assets with proper MIME types
 app.use('/assets', express.static('public/assets'));
-
-// Handle CSS files
-app.get('*.css', (req, res) => {
-    res.setHeader('Content-Type', 'text/css');
-    res.sendFile(__dirname + '/public' + req.path);
-});
-
-// Handle JavaScript files
-app.get('*.js', (req, res) => {
-    res.setHeader('Content-Type', 'application/javascript');
-    res.sendFile(__dirname + '/public' + req.path);
-});
-
-// Handle all static files in assets directory
-app.get('/assets/*', (req, res) => {
-    const filePath = __dirname + '/public' + req.path;
-    console.log('Attempting to serve file:', filePath);
-    res.sendFile(filePath);
-});
 
 // Debug route to check if files exist
 app.get('/debug-files', (req, res) => {

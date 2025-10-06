@@ -195,6 +195,12 @@ app.get('*.css', (req, res) => {
     res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
 });
 
+// Serve JavaScript files with correct MIME type
+app.get('*.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
+});
+
 // Serve HTML pages
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/FiaibnbDemo/index.html');
@@ -206,6 +212,11 @@ app.use((req, res, next) => {
         res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     }
     next();
+});
+
+// Fallback route for static files
+app.get('/assets/*', (req, res) => {
+    res.sendFile(__dirname + '/FiaibnbDemo' + req.path);
 });
 
 app.get('/packages', (req, res) => {

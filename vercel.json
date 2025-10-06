@@ -9,17 +9,11 @@
   "routes": [
     {
       "src": "/assets/(.*)",
-      "dest": "/FiaibnbDemo/assets/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "dest": "/FiaibnbDemo/assets/$1"
     },
     {
       "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/FiaibnbDemo/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "dest": "/FiaibnbDemo/$1"
     },
     {
       "src": "/(.*)",
@@ -30,16 +24,5 @@
     "server.js": {
       "maxDuration": 30
     }
-  },
-  "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    }
-  ]
+  }
 }

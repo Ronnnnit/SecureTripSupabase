@@ -31,7 +31,7 @@
         }
 
         // Generate session token and initialize Plug SDK
-        fetch("http://localhost:3000/generate-token", {
+        fetch("/generate-token", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: userEmail, display_name: userName }),
